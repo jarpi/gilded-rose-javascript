@@ -14,50 +14,54 @@ items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6)); 
 
 var types = {
-'normal':'Normal Item',
-'backStage':'Backstage passes to a TAFKAL80ETC concert', 
-'agedBrie':'Aged Brie', 
-'sulfuras':'Sulfuras, Hand of Ragnaros'
+normal:'Normal Item',
+backStage:'Backstage passes to a TAFKAL80ETC concert', 
+agedBrie:'Aged Brie', 
+sulfuras:'Sulfuras, Hand of Ragnaros'
 };
 
 function update_quality(items) { 
-  for (var i = 0; i < items.length; i++) {
-    var currentItem = items[i];
-    var currentItemType = getItemType(currentItem.name);
-
-    if (currentItemType == 'normal' && currentItem.quality > 0){
-      currentItem.quality = currentItem.quality - 1;
-    } else if (currentItem.quality < 50) { 
-        currentItem.quality = currentItem.quality + 1
-        if (currentItemType == types.backStage && currentItem.sell_in < 11 && currentItem.quality < 50) {
-          currentItem.quality = currentItem.quality + 1
-        }
-        if (currentItemType == types.backStage && currentItem.sell_in < 6 && currentItem.quality < 50) {
-          currentItem.quality = currentItem.quality + 1
-        }
+    for (var i = 0; i < items.length; i++) {
+      var currentItem = items[i];
+      var currentItemType = getItemType(currentItem.name);
+      if (currentItemType == 'normal' && currentItem.quality > 0){
+        currentItem.quality = currentItem.quality - 1;
+      } 
+      else 
+        if (currentItem.quality < 50) { 
+      	var toAdd = 1; 
+      	if (currentItemType == types.backStage) {
+      		if (currentItem.sell_in < 11) toAdd+=1; 
+      		if (currentItem.sell_in < 6) toAdd +=1; 
+      	} 
+        if (currentItemType == types.backStage && currentItem.sell_in < 11 && currentItem.quality < 50) { 
+          toAdd+= 1;  
+          if (currentItem.sell_in<6) toAdd+=1; 
+        }  
+        currentItem.quality = currentItem.quality + toAdd; 
       }
-    }
-    if (currentItem.name != types.sulfuras) {
-      currentItem.sell_in = currentItem.sell_in - 1;
-    }
-    if (currentItem.sell_in < 0) {
-      if (currentItem.name != types.agedBrie) {
-        if (currentItem.name != types.backStage) {
-          if (currentItem.quality > 0) {
-            if (currentItem.name != types.sulfuras) {
-              currentItem.quality = currentItem.quality - 1
-            }
-          }
-        } else {
+
+      if (currentItem.name != types.sulfuras) {
+        currentItem.sell_in = currentItem.sell_in - 1;
+      }
+
+      if (currentItem.sell_in < 0 && currentItemType == Types.normal && currentItemQuality>0) {
+      	currentItem.quality = currentItem.quality - 1
+        if (currentItemType == types.backStage) {
           currentItem.quality = currentItem.quality - currentItem.quality
-        }
-      } else {
-        if (currentItem.quality < 50) {
-          currentItem.quality = currentItem.quality + 1
+        } 
+        if (currentItemType == types.agedBrie) {
+          if (currentItem.quality < 50) {
+            currentItem.quality = currentItem.quality + 1
         }
       }
     }
   }
+}
+
+
+function getQuality(item) { 
+
 }
 
 function getItemType(itemName){
