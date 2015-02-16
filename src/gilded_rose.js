@@ -13,14 +13,15 @@ items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6)); 
 
-function update_quality(items) { 
 var types = {
-'backStage':'Backstage passes to a TAFKAL80ETC concert', 
-'agedBrie':'Aged Brie', 
-'sulfuras':'Sulfuras, Hand of Ragnaros'
-}; 
-  for (var i = 0; i < items.length; i++) {
-    var currentItem = items[i];
+	'backStage':'Backstage passes to a TAFKAL80ETC concert', 
+	'agedBrie':'Aged Brie', 
+	'sulfuras':'Sulfuras, Hand of Ragnaros'
+	}; 
+	
+function update_quality(items) { 
+  for (var i = 0; i < items.length; i++) { 
+    var currentItem = items[i]; 
     if (currentItem.name != types.agedBrie && currentItem.name != types.backStage) {
       if (currentItem.quality > 0) {
         if (currentItem.name != types.sulfuras) {
@@ -65,4 +66,4 @@ var types = {
       }
     }
   }
-}
+} 
