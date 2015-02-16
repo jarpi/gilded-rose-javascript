@@ -20,46 +20,47 @@ var types = {
 'sulfuras':'Sulfuras, Hand of Ragnaros'
 }; 
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name != types.agedBrie && items[i].name != types.backStage) {
-      if (items[i].quality > 0) {
-        if (items[i].name != types.sulfuras) {
-          items[i].quality = items[i].quality - 1
+    var currentItem = items[i];
+    if (currentItem.name != types.agedBrie && currentItem.name != types.backStage) {
+      if (currentItem.quality > 0) {
+        if (currentItem.name != types.sulfuras) {
+          currentItem.quality = currentItem.quality - 1
         }
       } 
     } else { 
-      if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1
-        if (items[i].name == types.backStage) {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
+      if (currentItem.quality < 50) {
+        currentItem.quality = currentItem.quality + 1
+        if (currentItem.name == types.backStage) {
+          if (currentItem.sell_in < 11) {
+            if (currentItem.quality < 50) {
+              currentItem.quality = currentItem.quality + 1
             }
           }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
+          if (currentItem.sell_in < 6) {
+            if (currentItem.quality < 50) {
+              currentItem.quality = currentItem.quality + 1
             }
           }
         }
       }
     }
-    if (items[i].name != types.sulfuras) {
-      items[i].sell_in = items[i].sell_in - 1;
+    if (currentItem.name != types.sulfuras) {
+      currentItem.sell_in = currentItem.sell_in - 1;
     }
-    if (items[i].sell_in < 0) {
-      if (items[i].name != types.agedBrie) {
-        if (items[i].name != types.backStage) {
-          if (items[i].quality > 0) {
-            if (items[i].name != types.sulfuras) {
-              items[i].quality = items[i].quality - 1
+    if (currentItem.sell_in < 0) {
+      if (currentItem.name != types.agedBrie) {
+        if (currentItem.name != types.backStage) {
+          if (currentItem.quality > 0) {
+            if (currentItem.name != types.sulfuras) {
+              currentItem.quality = currentItem.quality - 1
             }
           }
         } else {
-          items[i].quality = items[i].quality - items[i].quality
+          currentItem.quality = currentItem.quality - currentItem.quality
         }
       } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
+        if (currentItem.quality < 50) {
+          currentItem.quality = currentItem.quality + 1
         }
       }
     }
