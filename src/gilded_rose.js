@@ -13,34 +13,27 @@ items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6)); 
 
-function update_quality(items) { 
 var types = {
+'normal':'Normal Item',
 'backStage':'Backstage passes to a TAFKAL80ETC concert', 
 'agedBrie':'Aged Brie', 
 'sulfuras':'Sulfuras, Hand of Ragnaros'
-}; 
+};
+
+function update_quality(items) { 
   for (var i = 0; i < items.length; i++) {
     var currentItem = items[i];
-    if (currentItem.name != types.agedBrie && currentItem.name != types.backStage) {
-      if (currentItem.quality > 0) {
-        if (currentItem.name != types.sulfuras) {
-          currentItem.quality = currentItem.quality - 1
-        }
-      } 
-    } else { 
-      if (currentItem.quality < 50) {
+    var currentItemType = getItemType(currentItem.name);
+
+    if (currentItemType == 'normal' && currentItem.quality > 0){
+      currentItem.quality = currentItem.quality - 1;
+    } else if (currentItem.quality < 50) { 
         currentItem.quality = currentItem.quality + 1
-        if (currentItem.name == types.backStage) {
-          if (currentItem.sell_in < 11) {
-            if (currentItem.quality < 50) {
-              currentItem.quality = currentItem.quality + 1
-            }
-          }
-          if (currentItem.sell_in < 6) {
-            if (currentItem.quality < 50) {
-              currentItem.quality = currentItem.quality + 1
-            }
-          }
+        if (currentItemType == types.backStage && currentItem.sell_in < 11 && currentItem.quality < 50) {
+          currentItem.quality = currentItem.quality + 1
+        }
+        if (currentItemType == types.backStage && currentItem.sell_in < 6 && currentItem.quality < 50) {
+          currentItem.quality = currentItem.quality + 1
         }
       }
     }
@@ -65,4 +58,19 @@ var types = {
       }
     }
   }
+}
+
+function getItemType(itemName){
+  var type = types.normal;
+  if (itemName==types.backStage){
+    type = types.backStage;
+  }
+  else if(itemName==types.agedBrie){
+    type = types.agedBrie;
+  }
+  else if(itemName==type.sulfuras){
+    type = types.sulfuras;
+  }
+
+  return type;
 }
