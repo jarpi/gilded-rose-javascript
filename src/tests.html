@@ -18,72 +18,89 @@ QUnit.test( "test", function( assert ) {
   assert.ok( 1 == "1", "Passed!" ); 
 }); 
 
-QUnit.test("gilded basics", function(assert) {
+QUnit.test("Dexterity", function(assert) {
   var dexterity = new Item('+5 Dexterity Vest', 10, 20); 
-  items = [];
+  items = []; 
   items.push( dexterity );
   update_quality( items );
   assert.equal(dexterity.quality, 19); 
   assert.equal(dexterity.sell_in, 9); 
+}); 
 
-  dexterity = new Item('+5 Dexterity Vest', -1, 51); 
+QUnit.test("Dexterity < 0", function(assert) {
+  var dexterity = new Item('+5 Dexterity Vest', -1, 51); 
   items = []; 
   items.push( dexterity );
-  update_quality( items );
-
+  update_quality( items ); 
   assert.equal(dexterity.quality, 50); 
   assert.equal(dexterity.sell_in, -2); 
-
   update_quality( items );
   assert.equal(dexterity.quality, 49); 
   assert.equal(dexterity.sell_in, -3);  
+}); 
 
+QUnit.test("Aged brie normal", function(assert) { 
   var agedBrie = new Item('Aged Brie', 2,40); 
   items.push(agedBrie); 
   update_quality( items ); 
   assert.equal(agedBrie.quality, 41); 
   assert.equal(agedBrie.sell_in,1); 
+}); 
 
+QUnit.test("Aged brie 50", function(assert) {
  var agedBrie = new Item('Aged Brie', 2,50); 
   items.push(agedBrie); 
   update_quality( items ); 
   assert.equal(agedBrie.quality, 50); 
   assert.equal(agedBrie.sell_in,1); 
+}); 
 
+QUnit.test("Aged brie 49", function(assert) {
   var agedBrie = new Item('Aged Brie', 2,49); 
   items.push(agedBrie); 
   update_quality( items ); 
   assert.equal(agedBrie.quality, 50); 
   assert.equal(agedBrie.sell_in,1); 
+}); 
 
+QUnit.test("Sulfuras 80", function(assert) {
   var sulfuras = new Item('Sulfuras, Hand of Ragnaros',5,50); 
   items.push(sulfuras); 
   update_quality(items); 
   assert.equal(sulfuras.quality,80); 
   assert.equal(sulfuras.sell_in, 5); 
+}); 
 
-  var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 20,20); 
+QUnit.test("Backstage normal", function(assert) {
+  var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 20,20) 
   items.push(backStage); 
   update_quality(items); 
   assert.equal(backStage.quality, 21); 
   assert.equal(backStage.sell_in, 19); 
+}); 
 
-  var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 10,20); 
+QUnit.test("Backstage sell in <11", function(assert) {
+  var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 10,20);
   items.push(backStage); 
   update_quality(items); 
   assert.equal(backStage.quality, 22); 
   assert.equal(backStage.sell_in, 9); 
+}); 
 
+QUnit.test("Backstage sell in <6", function(assert) { 
   var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 5,20); 
   items.push(backStage); 
   update_quality(items); 
   assert.equal(backStage.quality, 23); 
   assert.equal(backStage.sell_in, 4); 
+}); 
 
+QUnit.test("Backstage sell in 0", function(assert) {
   var backStage = new Item('Backstage passes to a TAFKAL80ETC concert', 0,20); 
   items.push(backStage); 
   update_quality(items); 
   assert.equal(backStage.quality, 0); 
   assert.equal(backStage.sell_in, -1); 
 }); 
+
 </script> 

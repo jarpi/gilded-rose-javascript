@@ -23,6 +23,7 @@ function update_quality(items) {
   }; 
 
   for (var i = 0; i < items.length; i++) { 
+    var item = items[i]; 
     item.sell_in = getNextSellIn( item );
     item.quality = getNextQuality( item ); 
   }
@@ -74,7 +75,8 @@ function update_quality(items) {
     if(item.sell_in < 6) 
       toAdd = 3; 
     if(item.sell_in <= 0)
-      toAdd = 0; 
+      toAdd = item.quality * -1; 
     return toAdd; 
   } 
 } 
+
