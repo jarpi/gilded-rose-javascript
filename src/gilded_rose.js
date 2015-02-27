@@ -16,10 +16,10 @@ items.push(new Item('Conjured Mana Cake', 3, 6));
 
 function update_quality(items) { 
   var types = {
-  'normal' : 'Normal',
-  'backStage':'Backstage passes to a TAFKAL80ETC concert', 
-  'agedBrie':'Aged Brie', 
-  'sulfuras':'Sulfuras, Hand of Ragnaros'
+  normal : 'Normal',
+  backStage:'Backstage passes to a TAFKAL80ETC concert', 
+  agedBrie:'Aged Brie', 
+  sulfuras:'Sulfuras, Hand of Ragnaros'
   }; 
 
   for (var i = 0; i < items.length; i++) { 
